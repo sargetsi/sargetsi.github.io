@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hampden County Dinosaurs</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+/**
+* Create a position for the map
+* on the page */
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.6);
+  margin-left: 20px;
+  font-family: Raleway, sans-serif;
+  overflow: auto;
+  border-radius: 5px;
+}
+
+#features {
+  padding: 10px;
+  top: 0;
+  height: 350px;
+  margin-top: 15px;
+  width: 240px;
+}
+
+h2 {
+letter-spacing: 0.1em; 
+margin-bottom: -15px;
+        }
+        
+        h3 {
+    margin-bottom: -10px;
+            color: firebrick;
+        }
+        
+p {
+font-size: 13px; 
+        }
+
+}
+
+    </style>
+  </head>
+  <body>
+    <div id='map'></div>
+<div class='map-overlay' id='features'><img src="https://live.staticflickr.com/65535/49806236821_f1849119f1_m.jpg"><h2>DINOSAUR DISCOVERIES</h2><h4>Hampden County, Massachusetts</h4><div id='pd'><p style=color:firebrick;> Click a point for information.</p></div></div>
+    
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyZ2V0c2kiLCJhIjoiY2s2MTd6MGdzMDB1czNrbzc3ZXg3ZDBhbSJ9.2N-VO1WNVKg72rHZVqrjnQ'; // replace this with your access token
+    var map = new mapboxgl.Map({
+  container: 'map', 
+  style: 'mapbox://styles/sargetsi/ck962iu840och1iobzgcer66t', center: [-72.636892, 42.240720],
+      zoom: 11.3// replace this with your style URL
+}); 
+    
+ 
+     map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['dinos-hamp2'] // replace this with the name of the layer
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, 0] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.title + '</h3><p>' + feature.properties.description + '</p>')
+    .addTo(map);
+});
+
+     // Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'dinos-hamp2', function() {
+map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'dinos-hamp2', function() {
+map.getCanvas().style.cursor = '';
+});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lion's Mane Jellyfish</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+/**
+* Create a position for the map
+* on the page */
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(235, 227, 225, 0.8);
+  margin-left: 20px;
+  font-family: 'Noto serif', serif;
+  overflow: auto;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+#features {
+  padding: 10px;
+  top: 0;
+  height: 140px;
+  margin-top: 15px;
+  width: 330px;
+}
+
+h2 {
+
+	}
+	
+#image {
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  height: 220px;
+  margin-bottom: 30px;
+  width: 320px;
+  }
+  
+    </style>
+  </head>
+  <body>
+    <div id='map'></div>
+<div class='map-overlay' id='features'><h2>Lion's Mane Jellyfish (<i>Cyanea capilla</i>)<hr></h2><h3>Occurences of the largest known species of jellyfish</h3><div id='pd'>
+<p>Occurrence data from GBIF.org (24 April 2020). GBIF Occurrence Download: https://doi.org/10.15468/dl.dhtank</p></div></div>
+
+  
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2FyZ2V0c2kiLCJhIjoiY2s2MTd6MGdzMDB1czNrbzc3ZXg3ZDBhbSJ9.2N-VO1WNVKg72rHZVqrjnQ'; // replace this with your access token
+    var map = new mapboxgl.Map({
+  container: 'map', 
+  style: 'mapbox://styles/sargetsi/ck9dffgvh1h7q1iluzusvaik4', center: [5.031812, 61.598108],
+      zoom: 6.5// replace this with your style URL
+}); 
+ 
+     map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['cyanea-capillata'] // replace this with the name of the layer
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, 0] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.title + '</h3><p>')
+    .addTo(map);
+});
+
+     // Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'cyanea-capillata', function() {
+map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'cyanea-capillata', function() {
+map.getCanvas().style.cursor = '';
+});
+    </script>
+  </body>
+</html>
+
+
+
+https://live.staticflickr.com/65535/49802415047_2e19b8ba5a_n.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Flickr_-_ggallice_-_Glass_frog_%285%29.jpg/320px-Flickr_-_ggallice_-_Glass_frog_%285%29.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Flickr_-_ggallice_-_Glass_frog_%284%29_cropped.jpg/295px-Flickr_-_ggallice_-_Glass_frog_%284%29_cropped.jpg
+https://cff2.earth.com/uploads/2018/04/23130956/Transparent-skin-of-glass-frogs-reveals-eggs-waiting-to-be-hatched--1024x537.png
